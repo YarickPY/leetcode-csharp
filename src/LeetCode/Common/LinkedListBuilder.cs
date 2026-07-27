@@ -2,7 +2,11 @@
 {
     public static class LinkedListBuilder
     {
-        // Converts an array into a linked list of ListNode
+        /// <summary>
+        /// Converts an array into a linked list of ListNode
+        /// </summary>
+        /// <param name="values">The array of integers to convert</param>
+        /// <returns>The head of the linked list</returns>
         public static ListNode? ToListNode(int[] values)
         {
             ListNode? head = null;
@@ -27,7 +31,11 @@
             return head;
         }
 
-        // Converts a linked list back into an array for comparison
+        /// <summary>
+        /// Converts a linked list back into an array for comparison
+        /// </summary>
+        /// <param name="head">The head of the linked list</param>
+        /// <returns>An array containing the values of the linked list</returns>
         public static int[] ToArray(ListNode? head)
         {
             var result = new List<int>();

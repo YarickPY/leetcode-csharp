@@ -1,6 +1,8 @@
 ﻿namespace LeetCode.Common
 {
-    // Definition for a binary tree node. (by LeetCode)
+    /// <summary>
+    /// Definition for a binary tree node (by LeetCode)
+    /// </summary>
     public class TreeNode
     {
         public int val;
