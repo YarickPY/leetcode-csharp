@@ -12,15 +12,20 @@ namespace LeetCode.Tests
             new int[] { 1, 2, 3, 4 }, 
             new int[] { 5, 6, 7, 8 }, 
             new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [InlineData(
+            new int[] { 1, 2, 3 },
+            new int[] { 1, 2, 3 },
+            new int[] { 1, 1, 2, 2, 3, 3 })]
         public void MergeTwoLists_ReturnsExpectedResult(int[] list1, int[] list2, int[] expected)
         {
             var listNode1 = LinkedListBuilder.ToListNode(list1);
             var listNode2 = LinkedListBuilder.ToListNode(list2);
             var solution = new LC0021_MergeTwoSortedLists();
 
-            var actual = solution.MergeTwoLists(listNode1, listNode2);
+            var resultLinkedList = solution.MergeTwoLists(listNode1, listNode2);
+            var actual = LinkedListBuilder.ToArray(resultLinkedList);
 
-            Assert.Equal(expected, LinkedListBuilder.ToArray(actual));
+            Assert.Equal(expected, actual);
         }
     }
 }
