@@ -6,38 +6,27 @@ namespace LeetCode
     {
         public ListNode MergeTwoLists(ListNode list1, ListNode list2)
         {
-            var dummy = new ListNode();
+            var dummy = new ListNode(0);
             var current = dummy;
 
-            while (list1 != null || list2 != null)
+            while (list1 != null && list2 != null)
             {
-                current.next = new ListNode();
-                current = current.next;
-
-                if (list1 == null) 
+                if (list1.val <= list2.val)
                 {
-                    current.val = list2.val;
-                    list2 = list2.next;
-                    continue;
-                }
-                if (list2 == null)
-                {
-                    current.val = list1.val;
-                    list1 = list1.next;
-                    continue;
-                }
-
-                if (list1.val < list2.val)
-                {
-                    current.val = list1.val;
+                    current.next = list1;
                     list1 = list1.next;
                 }
                 else
                 {
-                    current.val = list2.val;
+                    current.next = list2;
                     list2 = list2.next;
                 }
+
+                current = current.next;
             }
+
+            // Appending the remaining tail of one of the lists
+            current.next = list1 ?? list2;
 
             return dummy.next;
         }
