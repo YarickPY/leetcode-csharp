@@ -1,15 +1,35 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace LeetCode
+﻿namespace LeetCode
 {
     public class LC0088_MergeSortedArray
     {
         public void Merge(int[] nums1, int m, int[] nums2, int n)
         {
-            var oldLength = m;
-            var newLength = m + n;
-            Array.Resize(ref nums1, newLength);
-            Array.Copy(nums2, 0, nums1, oldLength, nums2.Length);
+            var i = m - 1;
+            var j = n - 1;
+            var k = m + n - 1;
+
+            while (i >= 0 && j >= 0)
+            {
+                if (nums1[i] > nums2[j])
+                {
+                    nums1[k] = nums1[i];
+                    i--;
+                }
+                else
+                {
+                    nums1[k] = nums2[j];
+                    j--;
+                }
+                k--;
+            }
+
+            // nums2 still has elements, copy them
+            while (j >= 0)
+            {
+                nums1[k] = nums2[j];
+                j--;
+                k--;
+            }
         }
     }
 }
