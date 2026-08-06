@@ -2,18 +2,19 @@
 {
     public class LC0049_GroupAnagrams
     {
-        public List<List<string>> GroupAnagrams(string[] words)
+        private const int AlphabetSize = 256;
+
+        public IList<IList<string>> GroupAnagrams(string[] words)
         {
             var groups = new Dictionary<int[], List<string>>(new IntCustomArrayComparer());
 
             foreach (var word in words)
             {
-                const int alphabetSize = 256;
-                int[] alphabetCount = new int[alphabetSize];
+                int[] alphabetCount = new int[AlphabetSize];
 
                 foreach (char c in word)
                 {
-                    if (c < alphabetSize) 
+                    if (c < AlphabetSize)
                         alphabetCount[c]++;
                     else
                         throw new ArgumentOutOfRangeException($"Character '{c}' in word '{word}' is out of the expected range.");
@@ -27,7 +28,7 @@
                 list.Add(word);
             }
 
-            var result = new List<List<string>>(groups.Count);
+            var result = new List<IList<string>>(groups.Count);
             foreach (var pair in groups)
             {
                 result.Add(pair.Value);
@@ -35,7 +36,7 @@
             return result;
         }
 
-        public class IntCustomArrayComparer : IEqualityComparer<int[]>
+        sealed class IntCustomArrayComparer : IEqualityComparer<int[]>
         {
             public bool Equals(int[] x, int[] y)
             {
