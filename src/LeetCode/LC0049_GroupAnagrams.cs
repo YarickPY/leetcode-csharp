@@ -2,63 +2,44 @@
 {
     public class LC0049_GroupAnagrams
     {
-        private const int AlphabetSize = 256;
+        private const int AlphabetSize = 26;
 
-        public IList<IList<string>> GroupAnagrams(string[] words)
+        public IList<IList<string>> GroupAnagrams(string[] strs)
         {
-            var groups = new Dictionary<int[], List<string>>(new IntCustomArrayComparer());
+            var groups = new Dictionary<string, List<string>>(strs.Length);
+            Span<int> counts = stackalloc int[AlphabetSize];
+            Span<char> keyBuffer = stackalloc char[AlphabetSize];
 
-            foreach (var word in words)
+            foreach (var word in strs)
             {
-                int[] alphabetCount = new int[AlphabetSize];
+                counts.Clear();
 
                 foreach (char c in word)
                 {
-                    if (c < AlphabetSize)
-                        alphabetCount[c]++;
-                    else
-                        throw new ArgumentOutOfRangeException($"Character '{c}' in word '{word}' is out of the expected range.");
+                    counts[c - 'a']++;
                 }
 
-                if (!groups.TryGetValue(alphabetCount, out var list))
+                // Build a fixed-length 26-char key directly from counts,
+                // avoiding sorting (O(k)) and avoiding int[] as a dictionary key
+                for (int i = 0; i < AlphabetSize; i++)
+                {
+                    // Values up to 100 fit safely below char.MaxValue,
+                    // so we can pack the count directly as a char code
+                    keyBuffer[i] = (char)counts[i];
+                }
+
+                var key = new string(keyBuffer);
+
+                if (!groups.TryGetValue(key, out var list))
                 {
                     list = new List<string>();
-                    groups[alphabetCount] = list;
+                    groups[key] = list;
                 }
+
                 list.Add(word);
             }
 
-            var result = new List<IList<string>>(groups.Count);
-            foreach (var pair in groups)
-            {
-                result.Add(pair.Value);
-            }
-            return result;
-        }
-
-        sealed class IntCustomArrayComparer : IEqualityComparer<int[]>
-        {
-            public bool Equals(int[] x, int[] y)
-            {
-                if (x == null || y == null) return x == y;
-                if (x.Length != y.Length) return false;
-                for (int i = 0; i < x.Length; i++)
-                {
-                    if (x[i] != y[i]) return false;
-                }
-                return true;
-            }
-
-            public int GetHashCode(int[] obj)
-            {
-                if (obj == null) return 0;
-                int hash = 17;
-                foreach (int element in obj)
-                {
-                    hash = hash * 31 + element;
-                }
-                return hash;
-            }
+            return new List<IList<string>>(groups.Values);
         }
     }
 }
