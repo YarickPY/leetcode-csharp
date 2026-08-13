@@ -4,16 +4,20 @@
     {
         public int NumIslands(char[][] grid)
         {
-            if (grid == null || grid.Length == 0) return 0;
+            if (grid == null || grid.Length == 0)
+            { 
+                return 0;
+            }
+
             int numIslands = 0;
-            for (int i = 0; i < grid.Length; i++)
+            for (int col = 0; col < grid.Length; col++)
             {
-                for (int j = 0; j < grid[i].Length; j++)
+                for (int row = 0; row < grid[col].Length; row++)
                 {
-                    if (grid[i][j] == '1')
+                    if (grid[col][row] == '1')
                     {
                         numIslands++;
-                        Dfs(grid, i, j);
+                        Dfs(grid, col, row);
                     }
                 }
             }
@@ -23,23 +27,23 @@
         /// <summary>
         /// Depth-first search to mark all connected land cells ('1') as visited ('0').
         /// </summary>
-        private void Dfs(char[][] grid, int i, int j)
+        private void Dfs(char[][] grid, int col, int row)
         {
-            if (i < 0               ||
-                i >= grid.Length    ||
-                j < 0               ||
-                j >= grid[i].Length ||
-                grid[i][j] == '0')
+            if (col < 0                 ||
+                col >= grid.Length      ||
+                row < 0                 ||
+                row >= grid[col].Length ||
+                grid[col][row] == '0')
             {
                 return;
             }
 
             // Set the current cell to mark it as visited
-            grid[i][j] = '0';
-            Dfs(grid, i + 1, j);
-            Dfs(grid, i - 1, j);
-            Dfs(grid, i, j + 1);
-            Dfs(grid, i, j - 1);
+            grid[col][row] = '0';
+            Dfs(grid, col + 1, row);
+            Dfs(grid, col - 1, row);
+            Dfs(grid, col, row + 1);
+            Dfs(grid, col, row - 1);
         }
     }
 }
