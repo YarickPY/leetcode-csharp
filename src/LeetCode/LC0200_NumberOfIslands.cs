@@ -4,15 +4,20 @@
     {
         public int NumIslands(char[][] grid)
         {
-            if (grid == null || grid.Length == 0)
+            if (grid == null ||
+                grid.Length == 0 ||
+                grid[0].Length == 0)
             { 
                 return 0;
             }
 
+            int rows = grid.Length;
+            int cols = grid[0].Length;
             int numIslands = 0;
-            for (int col = 0; col < grid.Length; col++)
+
+            for (int col = 0; col < rows; col++)
             {
-                for (int row = 0; row < grid[col].Length; row++)
+                for (int row = 0; row < cols; row++)
                 {
                     if (grid[col][row] == '1')
                     {
