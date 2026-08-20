@@ -18,10 +18,10 @@
 
             for (int i = 0; i < chars.Length; i++)
             {
-                var curChat = chars[i];
-                if (curChat == '(' || curChat == '{' || curChat == '[')
+                var curChar = chars[i];
+                if (curChar == '(' || curChar == '{' || curChar == '[')
                 {
-                    stack.Push(curChat);
+                    stack.Push(curChar);
                 }
                 else
                 {
@@ -31,9 +31,9 @@
                     }
 
                     var lastChar = stack.Peek();
-                    if (curChat == ')' && lastChar == '(' ||
-                        curChat == '}' && lastChar == '{' ||
-                        curChat == ']' && lastChar == '['
+                    if (curChar == ')' && lastChar == '(' ||
+                        curChar == '}' && lastChar == '{' ||
+                        curChar == ']' && lastChar == '['
                         )
                     {
                         stack.Pop();
