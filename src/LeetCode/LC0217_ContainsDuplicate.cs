@@ -4,14 +4,13 @@
     {
         public bool ContainsDuplicate(int[] nums)
         {
-            var nums2 = new List<int>();
+            var seen = new HashSet<int>(nums.Length);
             foreach (var n in nums)
             {
-                if (nums2.Contains(n))
+                if (!seen.Add(n))
                 {
                     return true;
                 }
-                nums2.Add(n);
             }
             return false;
         }
