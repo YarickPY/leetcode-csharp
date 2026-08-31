@@ -19,12 +19,8 @@
                     counts[c - 'a']++;
                 }
 
-                // Build a fixed-length 26-char key directly from counts,
-                // avoiding sorting (O(k)) and avoiding int[] as a dictionary key
                 for (int i = 0; i < AlphabetSize; i++)
                 {
-                    // Values up to 100 fit safely below char.MaxValue,
-                    // so we can pack the count directly as a char code
                     keyBuffer[i] = (char)counts[i];
                 }
 
