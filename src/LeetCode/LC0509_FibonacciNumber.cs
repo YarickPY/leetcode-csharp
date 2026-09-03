@@ -8,7 +8,18 @@
             {
                 return n;
             }
-            return Fib(n - 1) + Fib(n - 2);
+
+            int previous = 0; // F(i - 2)
+            int current = 1;  // F(i - 1)
+
+            for (int i = 2; i <= n; i++)
+            {
+                int next = previous + current;
+                previous = current;
+                current = next;
+            }
+
+            return current;
         }
     }
 }
